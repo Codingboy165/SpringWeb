@@ -1,8 +1,9 @@
 package service;
 
 import com.fasterxml.jackson.databind.util.EnumValues;
-import lombok.Value;
 import model.Transaction;
+import model.TransactionType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class TransactionReader {
     private String fileTransactionsPath;
 
     public List<Transaction> getTransactions(){
+
         try{
             return Files.lines(Path.of(fileTransactionsPath)).
                     map(this::lineToTransaction).
@@ -28,6 +30,7 @@ public class TransactionReader {
 
     private Transaction lineToTransaction(String line){
         String[] transactionParts = line.split("\\|");
-        return new Transaction(Integer.parseInt(transactionParts[0]), transactionParts[1], transactionParts[2]), Double.parseDouble(transactionParts[3]));
+        TransactionType type= TransactionType.valueOf(transactionParts[2]);
+        return new Transaction(Integer.parseInt(transactionParts[0]), transactionParts[1], type, Double.parseDouble(transactionParts[3]));
     }
 }
