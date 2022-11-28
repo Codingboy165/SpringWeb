@@ -1,7 +1,10 @@
 package com.JohnnyCodeZone.countriesapplication.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import java.util.Objects;
 
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Transaction {
 
     private int id;
