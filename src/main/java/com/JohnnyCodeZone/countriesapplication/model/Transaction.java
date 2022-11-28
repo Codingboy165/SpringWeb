@@ -3,18 +3,34 @@ package com.JohnnyCodeZone.countriesapplication.model;
 import java.util.Objects;
 
 public class Transaction {
+
     private int id;
     private String product;
-    private TransactionType t;
+    private TransactionType type;
     private double amount;
 
-    public Transaction(int id, String product, TransactionType t, double amount) {
+    public Transaction(int id, String product, TransactionType type, double amount) {
         this.id = id;
         this.product = product;
-        this.t = t;
+        this.type = type;
         this.amount = amount;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
     public int id() {
         return id;
     }
@@ -23,8 +39,8 @@ public class Transaction {
         return product;
     }
 
-    public TransactionType t() {
-        return t;
+    public TransactionType type() {
+        return type;
     }
 
     public double amount() {
@@ -38,13 +54,13 @@ public class Transaction {
         var that = (Transaction) obj;
         return this.id == that.id &&
                 Objects.equals(this.product, that.product) &&
-                Objects.equals(this.t, that.t) &&
+                Objects.equals(this.type, that.type) &&
                 Double.doubleToLongBits(this.amount) == Double.doubleToLongBits(that.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, product, t, amount);
+        return Objects.hash(id, product, type, amount);
     }
 
     @Override
@@ -52,7 +68,7 @@ public class Transaction {
         return "Transaction[" +
                 "id=" + id + ", " +
                 "product=" + product + ", " +
-                "t=" + t + ", " +
+                "t=" + type + ", " +
                 "amount=" + amount + ']';
     }
 
