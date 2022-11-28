@@ -1,4 +1,4 @@
-package model;
+package com.JohnnyCodeZone.countriesapplication.model;
 
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,6 @@
-package service;
+package com.JohnnyCodeZone.countriesapplication.service;
 
-import model.Transaction;
+import com.JohnnyCodeZone.countriesapplication.model.Transaction;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Service
 public class TransactionManager {
     private final TransactionReader transactionReader;
-    private final List<Transaction> transactions;
+    private List<Transaction> transactions;
 
     public TransactionManager(TransactionReader transactionReader) {
         this.transactionReader = transactionReader;

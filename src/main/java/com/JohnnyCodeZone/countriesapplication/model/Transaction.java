@@ -1,12 +1,12 @@
-package model;
+package com.JohnnyCodeZone.countriesapplication.model;
 
 import java.util.Objects;
 
 public class Transaction {
-    private final int id;
-    private final String product;
-    private final TransactionType t;
-    private final double amount;
+    private int id;
+    private String product;
+    private TransactionType t;
+    private double amount;
 
     public Transaction(int id, String product, TransactionType t, double amount) {
         this.id = id;
