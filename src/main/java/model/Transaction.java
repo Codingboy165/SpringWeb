@@ -4,15 +4,15 @@ import java.util.Objects;
 
 public final class Transaction {
 
-    private final TransactionType[] t;
+    private final TransactionType t;
     private final int id;
     private final String product;
-    private final double amaunt;
+    private final double amount;
 
-    public Transaction(int id, String product,TransactionType[] type, double amount) {
+    public Transaction(int id, String product,TransactionType type, double amount) {
         this.id = id;
         this.product = product;
-        this.amaunt = amount;
+        this.amount = amount;
         this.t = type;
     }
 
@@ -24,8 +24,8 @@ public final class Transaction {
         return product;
     }
 
-    public double amaunt() {
-        return amaunt;
+    public double amount() {
+        return amount;
     }
 
     @Override
@@ -35,12 +35,12 @@ public final class Transaction {
         var that = (Transaction) obj;
         return this.id == that.id &&
                 Objects.equals(this.product, that.product) &&
-                Double.doubleToLongBits(this.amaunt) == Double.doubleToLongBits(that.amaunt);
+                Double.doubleToLongBits(this.amount) == Double.doubleToLongBits(that.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, product, amaunt);
+        return Objects.hash(id, product, amount);
     }
 
     @Override
@@ -48,7 +48,7 @@ public final class Transaction {
         return "Transaction[" +
                 "id=" + id + ", " +
                 "product=" + product + ", " +
-                "amaunt=" + amaunt + ']';
+                "amaunt=" + amount + ']';
     }
 
 }
