@@ -27,10 +27,6 @@ public class TransactionManager {
         return transactions.stream().filter(transaction-> (Objects.equals(product, transaction.product()))).collect(Collectors.toList());
     }
 
-    public Transaction getTransactionById(int Id){
-        return transactions.stream().filter(transaction -> transaction.id()== Id).findFirst().get();
-    }
-
     public Transaction add(Transaction transaction){
         transactions.add(transaction);
         return transaction;
@@ -48,7 +44,7 @@ public class TransactionManager {
         return transactions.stream()
                 .filter(c -> c.id() == id)
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Country missing"));
+                .orElseThrow(() -> new RuntimeException("Transaction missing"));
     }
 
     public Transaction deleteById(int id){
@@ -59,19 +55,13 @@ public class TransactionManager {
 
     public Map<String , List<Transaction>> mapFromATypeToList(String type){
         Map<String , List<Transaction>> result = new HashMap<>();
-        result.put(type,transactions.stream().filter(t-> {
-            t.type();
-            return false;
-        }).collect(Collectors.toList()));
+        result.put(type,transactions.stream().filter(t-> t.type().equals(type)).collect(Collectors.toList()));
         return result;
     }
 
     public Map<String , List<Transaction>> mapFromAProductToList(String product){
         Map<String , List<Transaction>> result = new HashMap<>();
-        result.put(product,transactions.stream().filter(t-> {
-            t.product();
-            return false;
-        }).collect(Collectors.toList()));
+        result.put(product,transactions.stream().filter(t->t.product().equals(product)).collect(Collectors.toList()));
         return result;
     }
 
