@@ -1,19 +1,25 @@
 package com.JohnnyCodeZone.countriesapplication.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import lombok.*;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Transaction {
-
-    private int id;
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private Integer id;
+    @Column
     private String product;
+    @Column
     private TransactionType type;
+    @Column
     private double amount;
 
-    public Transaction(int id, String product, TransactionType type, double amount) {
-        this.id = id;
+    public Transaction(String product, TransactionType type, double amount) {
         this.product = product;
         this.type = type;
         this.amount = amount;
@@ -49,31 +55,5 @@ public class Transaction {
     public double amount() {
         return amount;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (Transaction) obj;
-        return this.id == that.id &&
-                Objects.equals(this.product, that.product) &&
-                Objects.equals(this.type, that.type) &&
-                Double.doubleToLongBits(this.amount) == Double.doubleToLongBits(that.amount);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, product, type, amount);
-    }
-
-    @Override
-    public String toString() {
-        return "Transaction[" +
-                "id=" + id + ", " +
-                "product=" + product + ", " +
-                "t=" + type + ", " +
-                "amount=" + amount + ']';
-    }
-
 
 }

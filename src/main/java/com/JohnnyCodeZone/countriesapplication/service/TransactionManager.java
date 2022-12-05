@@ -9,27 +9,26 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Service
+@Service("TManager")
 public class TransactionManager {
-    private final TransactionReader transactionReader;
-    private List<Transaction> transactions;
+   private final TransactionRepository transactionRepository;
 
-    public TransactionManager(TransactionReader transactionReader) {
-        this.transactionReader = transactionReader;
-        transactions = transactionReader.getTransactions();
+    public TransactionManager(TransactionReader transactionReader, TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+        transactionRepository.saveAll(transactionReader.getTransactions());
+        System.out.println("Finished reading transactions");
     }
 
     public List<Transaction> getAllTransactions(){
-        return transactions;
+        return transactionRepository.findAll();
     }
 
     public List<Transaction> getAllTransactionByProduct(String product){
-        return transactions.stream().filter(transaction-> (Objects.equals(product, transaction.product()))).collect(Collectors.toList());
+        return getAllTransactions().stream().filter(transaction-> (Objects.equals(product, transaction.product()))).collect(Collectors.toList());
     }
 
     public Transaction add(Transaction transaction){
-        transactions.add(transaction);
-        return transaction;
+       return transactionRepository.save(transaction);
     }
 
     public Transaction update(int id, Transaction transaction){
@@ -41,27 +40,27 @@ public class TransactionManager {
     }
 
     public Transaction getById(int id) {
-        return transactions.stream()
-                .filter(c -> c.id() == id)
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Transaction missing"));
+        return transactionRepository.findById((long)id).orElseThrow(()-> new RuntimeException("Transaction missing"));
     }
 
     public Transaction deleteById(int id){
         Transaction transaction=getById(id);
-        transactions.remove(transaction);
+        transactionRepository.deleteById((long)id);
         return transaction;
     }
 
     public Map<String , List<Transaction>> mapFromATypeToList(String type){
         Map<String , List<Transaction>> result = new HashMap<>();
-        result.put(type,transactions.stream().filter(t-> t.type().equals(type)).collect(Collectors.toList()));
+        result.put(type,getAllTransactions().stream().filter(t-> {
+            t.type();
+            return false;
+        }).collect(Collectors.toList()));
         return result;
     }
 
     public Map<String , List<Transaction>> mapFromAProductToList(String product){
         Map<String , List<Transaction>> result = new HashMap<>();
-        result.put(product,transactions.stream().filter(t->t.product().equals(product)).collect(Collectors.toList()));
+        result.put(product,getAllTransactions().stream().filter(t->t.product().equals(product)).collect(Collectors.toList()));
         return result;
     }
 

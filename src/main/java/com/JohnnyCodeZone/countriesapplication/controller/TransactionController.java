@@ -9,7 +9,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("hello")
+@RequestMapping("transactions")
 public class TransactionController {
 
     private final TransactionManager transactionManager;

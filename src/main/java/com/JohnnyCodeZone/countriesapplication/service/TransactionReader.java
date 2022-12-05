@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class TransactionReader {
     @Value("${file.transactions}")
     private String fileTransactionsPath;
-
+    public static int transactionId=0;
     public List<Transaction> getTransactions(){
 
         try{
@@ -28,7 +28,7 @@ public class TransactionReader {
 
     private Transaction lineToTransaction(String line){
         String[] transactionParts = line.split("\\|");
-        TransactionType type= TransactionType.valueOf(transactionParts[2]);
-        return new Transaction(Integer.parseInt(transactionParts[0]), transactionParts[1], type, Double.parseDouble(transactionParts[3]));
+        TransactionType type= TransactionType.valueOf(transactionParts[1]);
+        return new Transaction(transactionParts[0], type, Double.parseDouble(transactionParts[2]));
     }
 }
