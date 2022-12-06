@@ -5,13 +5,13 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Objects;
-
+@NoArgsConstructor
 @Entity
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Transaction {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Integer id;
+    private long id;
     @Column
     private String product;
     @Column
@@ -40,7 +40,7 @@ public class Transaction {
     public void setAmount(double amount) {
         this.amount = amount;
     }
-    public int id() {
+    public long id() {
         return id;
     }
 
